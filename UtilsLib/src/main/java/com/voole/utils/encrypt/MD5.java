@@ -3,7 +3,12 @@ package com.voole.utils.encrypt;
 
 import com.voole.utils.log.LogUtil;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * 标准MD5加密方法，使用java类库的security包的MessageDigest类处理 <BR>
@@ -61,6 +66,27 @@ public class MD5 {
 			md5 = getMD5ofStr(md5);
 		}
 		return getMD5ofStr(md5);
+	}
+
+	public static String getFileMD5(File file) {
+		BigInteger bi = null;
+		try {
+			byte[] buffer = new byte[8192];
+			int len = 0;
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			FileInputStream fis = new FileInputStream(file);
+			while ((len = fis.read(buffer)) != -1) {
+				md.update(buffer, 0, len);
+			}
+			fis.close();
+			byte[] b = md.digest();
+			bi = new BigInteger(1, b);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return bi.toString(16);
 	}
 	/**
 	 * 密码验证方法
