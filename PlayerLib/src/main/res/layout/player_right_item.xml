@@ -1,0 +1,20 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cpb="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/center_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/transparent"
+    android:orientation="vertical"
+    android:padding="0dip">
+
+    <Button
+        android:id="@+id/recycle_text_view"
+        android:layout_width="@dimen/w_54"
+        android:textSize="@dimen/h_20"
+        android:gravity="center"
+        android:background="@drawable/shape_round_bt_unfoces"
+        android:textColor="#FFFFFF"
+        android:layout_height="@dimen/h_42" />
+</RelativeLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="cpb_default_color">#EB6610</color>
+
+    <dimen name="cpb_default_stroke_width">5dp</dimen>
+
+    <integer name="cpb_default_min_sweep_angle">5</integer>
+    <integer name="cpb_default_max_sweep_angle">300</integer>
+
+    <item name="cpb_default_sweep_speed" format="float" type="string">1</item>
+    <item name="cpb_default_rotation_speed" format="float" type="string">1</item>
+
+    <!-- 两种样式大小，小尺寸和大尺寸 -->
+    <dimen name="cpb_small_width">40dp</dimen>
+    <dimen name="cpb_big_width">50dp</dimen>
+
+</resources>

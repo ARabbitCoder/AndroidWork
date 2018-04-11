@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidWork.iml" filepath="$PROJECT_DIR$/AndroidWork.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DB/DB.iml" filepath="$PROJECT_DIR$/DB/DB.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MainProject/MainProject.iml" filepath="$PROJECT_DIR$/MainProject/MainProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayerLib/PlayerLib.iml" filepath="$PROJECT_DIR$/PlayerLib/PlayerLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UI/UI.iml" filepath="$PROJECT_DIR$/UI/UI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Upgrade/Upgrade.iml" filepath="$PROJECT_DIR$/Upgrade/Upgrade.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UtilsLib/UtilsLib.iml" filepath="$PROJECT_DIR$/UtilsLib/UtilsLib.iml" />
+    </modules>
+  </component>
+</project>

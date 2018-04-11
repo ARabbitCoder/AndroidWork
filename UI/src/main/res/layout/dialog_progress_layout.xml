@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_centerInParent="true"
+    android:background="@drawable/corner_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/h_15"
+        android:gravity="center"
+        android:textColor="#151212"
+        android:textSize="@dimen/h_30"
+        android:textStyle="bold" />
+
+    <com.ayearn.ui.customview.NumberProgressView
+        android:id="@+id/dialog_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/w_10"
+        android:layout_marginRight="@dimen/w_10"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+        <com.ayearn.ui.superview.SuperTextView
+            android:id="@+id/no"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#151212"
+            android:textSize="@dimen/h_24"
+            app:corner="@dimen/h_10"
+            app:left_bottom_corner="true"
+            app:right_bottom_corner="true"
+            app:pressBgColor="#ae0a3faf"
+            android:visibility="gone"
+            />
+        <com.ayearn.ui.superview.SuperTextView
+            android:id="@+id/yes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#151212"
+            android:textSize="@dimen/h_24"
+            app:corner="@dimen/h_10"
+            app:left_bottom_corner="true"
+            app:right_bottom_corner="true"
+            app:pressBgColor="#ae0a3faf"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+</LinearLayout>
+
