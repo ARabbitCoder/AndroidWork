@@ -2,6 +2,8 @@ package com.voole.utils.downloader;
 
 import android.text.TextUtils;
 
+import com.voole.utils.log.LogUtil;
+
 import java.io.File;
 
 /**
@@ -14,7 +16,7 @@ public class BaseDownloadInterceptor implements DownlaodInterceptor{
     private File targetFile;
     private boolean isStop = false;
     private String fileMd5;
-
+    public boolean isDownloading = false;
     /**
      * 根据业务逻辑进行对下载地址判断
      * 子类必须重写
@@ -58,7 +60,7 @@ public class BaseDownloadInterceptor implements DownlaodInterceptor{
 
     @Override
     public void downloadPercent(int percent) {
-
+        isDownloading = true;
     }
 
     @Override
@@ -72,17 +74,18 @@ public class BaseDownloadInterceptor implements DownlaodInterceptor{
 
     @Override
     public void downloadSuccess(String downloadurl, File targetFile) {
-
+        isDownloading = false;
     }
 
     @Override
     public void downloadStoped(String downloadurl, File targetFile) {
-
+        isStop = false;
+        isDownloading = false;
     }
 
     @Override
     public void downloadFailed(String downloadurl, File targetFile, String reason) {
-
+        isDownloading = false;
     }
 
 
@@ -92,6 +95,7 @@ public class BaseDownloadInterceptor implements DownlaodInterceptor{
     }
 
     public void stopDownload(){
+        isDownloading = false;
         isStop = true;
     }
 }
