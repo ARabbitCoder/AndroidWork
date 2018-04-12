@@ -2,6 +2,8 @@ package com.ayearn.db.generated;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.ayearn.db.bean.DownLoadInfo;
 import com.ayearn.db.bean.User;
 import org.greenrobot.greendao.query.QueryBuilder;
 import java.util.List;
@@ -94,5 +96,13 @@ public class GreenDaoManager {
     private void testQuery(){
        QueryBuilder builder =  mDaoSession.getUserDao().queryBuilder();
        builder.where(UserDao.Properties.Id.eq(880909),UserDao.Properties.Username.eq("jack"));
+    }
+
+    public List<DownLoadInfo> queryAllDownload(){
+        return mDaoSession.getDownLoadInfoDao().loadAll();
+    }
+
+    public void updateDownloadInfo(DownLoadInfo downLoadInfo){
+        mDaoSession.getDownLoadInfoDao().update(downLoadInfo);
     }
 }
