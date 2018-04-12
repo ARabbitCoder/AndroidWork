@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -400,29 +401,33 @@ public class NetUtil {
         boolean isContinue = downlaodInterceptor.isContinueDownload(downloadurl, file);
         Request.Builder requestbuilder = new Request.Builder().url(downloadurl);
         long current = 0;
+        long total = 0;
         if (isContinue) {
-            long total = getContentLength(downloadurl);
+            total = getContentLength(downloadurl);
             current = file.length();
             LogUtil.d(TAG,"downLoadFileWithInterceptorSyn(NetUtil.java:406)--Info-->>broken potion download "+current);
             requestbuilder.header("RANGE", "bytes=" + current + "-" + total).build();
         }
         Call call = createOKHttpClient(5, 3000, 5).newCall(requestbuilder.build());
-        FileOutputStream fos = null;
         InputStream is = null;
         try {
             Response response = call.execute();
             byte[] buf = new byte[2048];
             int len = 0;
-            long total = response.body().contentLength();
+            //如果是断点下载则使用总的长度而不是分段请求的长度
+            if(!isContinue){
+                total = response.body().contentLength();
+            }
             LogUtil.d(TAG,"downLoadFileWithInterceptorSyn(NetUtil.java:406)--Info-->>broken potion download "+total);
             LogUtil.d(TAG, "onResponse(NetUtil.java:331)--Info-->>total " + total);
             is = response.body().byteStream();
-            fos = new FileOutputStream(file);
+            RandomAccessFile accessFile = new RandomAccessFile(file,"rw");
+            accessFile.seek(current);
             long time = System.currentTimeMillis();
             while ((len = is.read(buf)) != -1&&!downlaodInterceptor.isStopDownload()) {
                 current += len;
                 LogUtil.d(TAG, "onResponse(NetUtil.java:337)--Info-->>current " + current);
-                fos.write(buf, 0, len);
+                accessFile.write(buf, 0, len);
                 long ctime = System.currentTimeMillis();
                 //大于一秒才回调
                 if ((ctime - time) >= 1000 || current == total) {
@@ -431,19 +436,18 @@ public class NetUtil {
                     downlaodInterceptor.downloadPercent(percent);
                 }
             }
-            fos.flush();
             try {
+                response.close();
                 if (is != null) {
                     is.close();
                 }
-                if (fos != null) {
-                    fos.close();
+                if (accessFile != null) {
+                    accessFile.close();
                 }
             } catch (IOException e) {
                 LogUtil.e(TAG, "onResponse--finally--(NetUtil.java:355)--Error-->>", e);
             }
             if(downlaodInterceptor.isStopDownload()){
-                call.cancel();
                 downlaodInterceptor.downloadStoped(downloadurl,file);
             }else {
                 String md5 = MD5.getFileMD5(file);
