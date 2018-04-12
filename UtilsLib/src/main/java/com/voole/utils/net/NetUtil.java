@@ -405,6 +405,9 @@ public class NetUtil {
         if (isContinue) {
             total = getContentLength(downloadurl);
             current = file.length();
+            if(total==current){
+                return;
+            }
             LogUtil.d(TAG,"downLoadFileWithInterceptorSyn(NetUtil.java:406)--Info-->>broken potion download "+current);
             requestbuilder.header("RANGE", "bytes=" + current + "-" + total).build();
         }
@@ -417,8 +420,8 @@ public class NetUtil {
             //如果是断点下载则使用总的长度而不是分段请求的长度
             if(!isContinue){
                 total = response.body().contentLength();
+                LogUtil.d(TAG,"downLoadFileWithInterceptorSyn(NetUtil.java:406)--Info-->>broken potion download "+total);
             }
-            LogUtil.d(TAG,"downLoadFileWithInterceptorSyn(NetUtil.java:406)--Info-->>broken potion download "+total);
             LogUtil.d(TAG, "onResponse(NetUtil.java:331)--Info-->>total " + total);
             is = response.body().byteStream();
             RandomAccessFile accessFile = new RandomAccessFile(file,"rw");

@@ -16,7 +16,7 @@ public class BaseDownloadInterceptor implements DownlaodInterceptor{
     private File targetFile;
     private boolean isStop = false;
     private String fileMd5;
-    public boolean isDownloading = false;
+    protected boolean isDownloading = false;
     /**
      * 根据业务逻辑进行对下载地址判断
      * 子类必须重写
@@ -65,6 +65,7 @@ public class BaseDownloadInterceptor implements DownlaodInterceptor{
 
     @Override
     public boolean cheackFileMd5(File targetFile,String md5) {
+        LogUtil.d("Base","cheackFileMd5(BaseDownloadInterceptor.java:68)--Info-->>"+md5);
         if(TextUtils.isEmpty(fileMd5)){
             return true;
         }else {

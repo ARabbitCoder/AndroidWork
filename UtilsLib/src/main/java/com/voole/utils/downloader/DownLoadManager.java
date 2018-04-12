@@ -49,7 +49,7 @@ public class DownLoadManager {
             initMap();
         }
         BaseDownloadInterceptor tempinterceptor = interceptorMap.get(key);
-        if(interceptor!=null){
+        if(tempinterceptor!=null){
             if(tempinterceptor.isDownloading){
                 LogUtil.d(TAG,"startDownload(DownLoadManager.java:52)--Info-->>already in downloading");
                 return;

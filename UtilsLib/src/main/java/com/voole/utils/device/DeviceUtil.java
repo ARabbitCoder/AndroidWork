@@ -121,7 +121,7 @@ public class DeviceUtil {
      * @return
      */
     public static String getMacAddress() {
-       /* if(isCarDevice){
+       if(isCarDevice){
             LogUtil.e("DeviceUtil","CarDevice not support the method call setDeviceType(true) first then call getMacAddressNew try to get the MacAdresss--Error-->>");
             if(mContext != null) {
                 return getImsiMac(mContext);
@@ -149,8 +149,8 @@ public class DeviceUtil {
         } catch (SocketException e) {
             e.printStackTrace();
         }
-        return null;*/
-       return "bc20bae38816";
+        return null;
+       //return "bc20bae38816";
     }
 
     /**
