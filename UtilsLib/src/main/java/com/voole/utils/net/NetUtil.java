@@ -3,8 +3,6 @@ package com.voole.utils.net;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
-import com.voole.utils.downloader.DownlaodInterceptor;
 import com.voole.utils.encrypt.MD5;
 import com.voole.utils.neterror.ErrorCode;
 import com.voole.utils.log.LogUtil;
@@ -386,13 +384,13 @@ public class NetUtil {
 
     /**
      * 线程同步方式下载文件,支持断点下载
-     * @param downloadurl
      * @param downlaodInterceptor
      */
-    public void downLoadFileWithInterceptorSyn(String downloadurl, DownlaodInterceptor downlaodInterceptor) {
+    public void downLoadFileWithInterceptorSyn(DownlaodInterceptor downlaodInterceptor) {
         if (downlaodInterceptor == null) {
             return;
         }
+        String downloadurl= downlaodInterceptor.getDownloadUrl();
         File file = downlaodInterceptor.getTargetFile();
         if (file.exists() && file.isDirectory()) {
             downlaodInterceptor.downloadFailed(downloadurl, file, "target is directory");
@@ -462,11 +460,11 @@ public class NetUtil {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            downlaodInterceptor.downloadFailed(downloadurl,file,"net io error");
+            LogUtil.e(TAG,"downLoadFileWithInterceptorSyn(NetUtil.java:546)--Error-->>",e);
         }
 
     }
-
     /**
      * 异步以字符形式获取服务器数据 GET方式
      *

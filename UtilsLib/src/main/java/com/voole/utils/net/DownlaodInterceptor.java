@@ -1,4 +1,4 @@
-package com.voole.utils.downloader;
+package com.voole.utils.net;
 
 import java.io.File;
 
@@ -9,6 +9,7 @@ import java.io.File;
  */
 
 public interface DownlaodInterceptor {
+    public String getDownloadUrl();
     /**
      * 下载的路径文件
      * 这里需要对文件合法性进行校验
