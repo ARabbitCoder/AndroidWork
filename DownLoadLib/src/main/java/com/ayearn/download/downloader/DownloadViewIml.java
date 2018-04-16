@@ -1,4 +1,4 @@
-package com.voole.utils.downloader;
+package com.ayearn.download.downloader;
 
 /**
  * @author liujingwei
@@ -7,6 +7,7 @@ package com.voole.utils.downloader;
  */
 
 public interface DownloadViewIml {
+    public void initDownloadView(String json);
     public void setDownloadPercent(String percent);
     public void downloadSuccess();
     public void downloadStoped();

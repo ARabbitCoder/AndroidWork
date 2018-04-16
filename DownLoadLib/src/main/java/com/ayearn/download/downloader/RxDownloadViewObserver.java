@@ -1,4 +1,4 @@
-package com.voole.utils.downloader;
+package com.ayearn.download.downloader;
 import com.voole.utils.log.LogUtil;
 import com.voole.utils.rxjava.Result;
 
@@ -38,6 +38,9 @@ public class RxDownloadViewObserver  implements Observer<Result> {
                 break;
             case 2:
                 downloadViewIml.downloadStoped();
+                break;
+            case -1:
+                downloadViewIml.initDownloadView(o.getResultMessage());
                 break;
             default:
                 break;
