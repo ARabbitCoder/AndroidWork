@@ -1,1 +1,1 @@
-include ':MainProject', ':DB', ':PlayerLib', ':Upgrade', 'UI','UtilsLib'
+include ':MainProject', ':DB', ':PlayerLib', ':Upgrade', ':DownLoadLib', 'UI','UtilsLib'

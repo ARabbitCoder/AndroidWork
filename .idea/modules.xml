@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidWork.iml" filepath="$PROJECT_DIR$/AndroidWork.iml" />
       <module fileurl="file://$PROJECT_DIR$/DB/DB.iml" filepath="$PROJECT_DIR$/DB/DB.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DownLoadLib/DownLoadLib.iml" filepath="$PROJECT_DIR$/DownLoadLib/DownLoadLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/MainProject/MainProject.iml" filepath="$PROJECT_DIR$/MainProject/MainProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/PlayerLib/PlayerLib.iml" filepath="$PROJECT_DIR$/PlayerLib/PlayerLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/UI/UI.iml" filepath="$PROJECT_DIR$/UI/UI.iml" />

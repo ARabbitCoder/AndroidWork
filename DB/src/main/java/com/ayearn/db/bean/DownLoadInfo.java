@@ -26,6 +26,10 @@ public class DownLoadInfo {
     private String downloadpercent;
     @NotNull
     private boolean isdownloadcomplete;
+    @NotNull
+    private String filemd5;
+    @NotNull
+    private String savefilepath;
     public boolean getIsdownloadcomplete() {
         return this.isdownloadcomplete;
     }
@@ -68,11 +72,24 @@ public class DownLoadInfo {
     public void setDownloadpercent(String downloadpercent) {
         this.downloadpercent = downloadpercent;
     }
-    @Generated(hash = 294701889)
+    public String getFilemd5() {
+        return this.filemd5;
+    }
+    public void setFilemd5(String filemd5) {
+        this.filemd5 = filemd5;
+    }
+    public String getSavefilepath() {
+        return this.savefilepath;
+    }
+    public void setSavefilepath(String savefilepath) {
+        this.savefilepath = savefilepath;
+    }
+    @Generated(hash = 48691213)
     public DownLoadInfo(long id, @NotNull String downloadurl,
             @NotNull String downloadid, @NotNull String downloadname,
             int downloadstatus, @NotNull String downloadpercent,
-            boolean isdownloadcomplete) {
+            boolean isdownloadcomplete, @NotNull String filemd5,
+            @NotNull String savefilepath) {
         this.id = id;
         this.downloadurl = downloadurl;
         this.downloadid = downloadid;
@@ -80,6 +97,8 @@ public class DownLoadInfo {
         this.downloadstatus = downloadstatus;
         this.downloadpercent = downloadpercent;
         this.isdownloadcomplete = isdownloadcomplete;
+        this.filemd5 = filemd5;
+        this.savefilepath = savefilepath;
     }
     @Generated(hash = 1743687477)
     public DownLoadInfo() {

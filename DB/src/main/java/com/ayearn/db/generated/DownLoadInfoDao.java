@@ -31,6 +31,8 @@ public class DownLoadInfoDao extends AbstractDao<DownLoadInfo, Long> {
         public final static Property Downloadstatus = new Property(4, int.class, "downloadstatus", false, "DOWNLOADSTATUS");
         public final static Property Downloadpercent = new Property(5, String.class, "downloadpercent", false, "DOWNLOADPERCENT");
         public final static Property Isdownloadcomplete = new Property(6, boolean.class, "isdownloadcomplete", false, "ISDOWNLOADCOMPLETE");
+        public final static Property Filemd5 = new Property(7, String.class, "filemd5", false, "FILEMD5");
+        public final static Property Savefilepath = new Property(8, String.class, "savefilepath", false, "SAVEFILEPATH");
     };
 
 
@@ -52,7 +54,9 @@ public class DownLoadInfoDao extends AbstractDao<DownLoadInfo, Long> {
                 "\"DOWNLOADNAME\" TEXT NOT NULL ," + // 3: downloadname
                 "\"DOWNLOADSTATUS\" INTEGER NOT NULL ," + // 4: downloadstatus
                 "\"DOWNLOADPERCENT\" TEXT NOT NULL ," + // 5: downloadpercent
-                "\"ISDOWNLOADCOMPLETE\" INTEGER NOT NULL );"); // 6: isdownloadcomplete
+                "\"ISDOWNLOADCOMPLETE\" INTEGER NOT NULL ," + // 6: isdownloadcomplete
+                "\"FILEMD5\" TEXT NOT NULL ," + // 7: filemd5
+                "\"SAVEFILEPATH\" TEXT NOT NULL );"); // 8: savefilepath
     }
 
     /** Drops the underlying database table. */
@@ -71,6 +75,8 @@ public class DownLoadInfoDao extends AbstractDao<DownLoadInfo, Long> {
         stmt.bindLong(5, entity.getDownloadstatus());
         stmt.bindString(6, entity.getDownloadpercent());
         stmt.bindLong(7, entity.getIsdownloadcomplete() ? 1L: 0L);
+        stmt.bindString(8, entity.getFilemd5());
+        stmt.bindString(9, entity.getSavefilepath());
     }
 
     @Override
@@ -83,6 +89,8 @@ public class DownLoadInfoDao extends AbstractDao<DownLoadInfo, Long> {
         stmt.bindLong(5, entity.getDownloadstatus());
         stmt.bindString(6, entity.getDownloadpercent());
         stmt.bindLong(7, entity.getIsdownloadcomplete() ? 1L: 0L);
+        stmt.bindString(8, entity.getFilemd5());
+        stmt.bindString(9, entity.getSavefilepath());
     }
 
     @Override
@@ -99,7 +107,9 @@ public class DownLoadInfoDao extends AbstractDao<DownLoadInfo, Long> {
             cursor.getString(offset + 3), // downloadname
             cursor.getInt(offset + 4), // downloadstatus
             cursor.getString(offset + 5), // downloadpercent
-            cursor.getShort(offset + 6) != 0 // isdownloadcomplete
+            cursor.getShort(offset + 6) != 0, // isdownloadcomplete
+            cursor.getString(offset + 7), // filemd5
+            cursor.getString(offset + 8) // savefilepath
         );
         return entity;
     }
@@ -113,6 +123,8 @@ public class DownLoadInfoDao extends AbstractDao<DownLoadInfo, Long> {
         entity.setDownloadstatus(cursor.getInt(offset + 4));
         entity.setDownloadpercent(cursor.getString(offset + 5));
         entity.setIsdownloadcomplete(cursor.getShort(offset + 6) != 0);
+        entity.setFilemd5(cursor.getString(offset + 7));
+        entity.setSavefilepath(cursor.getString(offset + 8));
      }
     
     @Override

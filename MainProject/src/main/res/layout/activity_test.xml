@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     >
     <!--<com.ayearn.playerlib.VideoViewPlayer
         android:id="@+id/video_view"
@@ -13,7 +14,15 @@
     <Button
         android:id="@+id/test"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="无界面"
+        />
+
+    <Button
+        android:id="@+id/test1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="有界面" />
     <!--<com.ayearn.playerlib.player.VideoPlayer
         android:id="@+id/video_view"
         android:layout_width="match_parent"
@@ -22,4 +31,8 @@
     <com.ayearn.playerlib.controller.MediaViewControl
         android:layout_width="match_parent"
         android:layout_height="match_parent"></com.ayearn.playerlib.controller.MediaViewControl>-->
-</RelativeLayout>
+    <com.ayearn.download.DownloadView
+        android:id="@+id/download_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.ayearn.download.DownloadView>
+</LinearLayout>

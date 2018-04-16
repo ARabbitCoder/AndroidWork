@@ -164,7 +164,7 @@ public class ProgressDialog extends Dialog {
             } else {
                 title.setVisibility(View.GONE);
             }
-            numberProgressView = layout.findViewById(R.id.dialog_progress);
+            //numberProgressView = layout.findViewById(R.id.dialog_progress);
             if (!TextUtils.isEmpty(mPositiveButtonText)) {
                 final SuperTextView positiveBtn = layout.findViewById(R.id.yes);
                 positiveBtn.setVisibility(View.VISIBLE);

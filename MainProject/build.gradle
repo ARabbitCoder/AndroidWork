@@ -22,7 +22,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    defaultConfig {
+        //'armeabi',
+        ndk {
+            abiFilters  'armeabi-v7a'
+        }
+    }
 }
 
 dependencies {
@@ -34,4 +39,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
     implementation project(':UI')
     implementation project(':PlayerLib')
+    implementation project(':DB')
 }

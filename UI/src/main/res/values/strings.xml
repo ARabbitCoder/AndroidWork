@@ -17,4 +17,8 @@
 <resources>
     <string name="app_name">UI</string>
     <string name="loading">加载中...</string>
+    <string name="downloading">下载中</string>
+    <string name="downloadsuccess">已下载</string>
+    <string name="downloadstop">已暂停</string>
+    <string name="downloadfailed">下载失败</string>
 </resources>

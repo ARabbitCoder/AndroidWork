@@ -9,6 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/DB" />
+            <option value="$PROJECT_DIR$/DownLoadLib" />
             <option value="$PROJECT_DIR$/MainProject" />
             <option value="$PROJECT_DIR$/PlayerLib" />
             <option value="$PROJECT_DIR$/UI" />

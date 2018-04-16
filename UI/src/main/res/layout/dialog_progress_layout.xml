@@ -18,14 +18,9 @@
         android:textColor="#151212"
         android:textSize="@dimen/h_30"
         android:textStyle="bold" />
-
-    <com.ayearn.ui.customview.NumberProgressView
-        android:id="@+id/dialog_progress"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/w_10"
-        android:layout_marginRight="@dimen/w_10"
-        />
+    <include
+        layout="@layout/custom_progress_layout"
+        ></include>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

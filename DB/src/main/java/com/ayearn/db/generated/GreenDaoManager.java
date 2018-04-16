@@ -96,13 +96,20 @@ public class GreenDaoManager {
     private void testQuery(){
        QueryBuilder builder =  mDaoSession.getUserDao().queryBuilder();
        builder.where(UserDao.Properties.Id.eq(880909),UserDao.Properties.Username.eq("jack"));
+       mDaoSession.getUserDao().queryBuilder().build().list();
     }
 
     public List<DownLoadInfo> queryAllDownload(){
         return mDaoSession.getDownLoadInfoDao().loadAll();
     }
-
+    public List<DownLoadInfo> queryDownloadByUrl(String url){
+        return mDaoSession.getDownLoadInfoDao().queryBuilder().where(DownLoadInfoDao.Properties.Downloadid.eq(url)).build().list();
+    }
     public void updateDownloadInfo(DownLoadInfo downLoadInfo){
         mDaoSession.getDownLoadInfoDao().update(downLoadInfo);
+    }
+
+    public long insertDownloadInfo(DownLoadInfo downLoadInfo){
+       return mDaoSession.getDownLoadInfoDao().insertOrReplace(downLoadInfo);
     }
 }

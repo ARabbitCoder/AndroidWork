@@ -1,5 +1,4 @@
-package com.ayearn.ui.customview;
-
+package com.ayearn.download;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
@@ -9,9 +8,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.ayearn.ui.R;
-import com.voole.utils.downloader.DownloadViewIml;
+import com.ayearn.download.downloader.DownloadViewIml;
+
+import java.io.File;
 
 /**
  * @author liujingwei
@@ -52,27 +54,55 @@ public class DownloadView extends CardView implements DownloadViewIml{
         initListener();
     }
     private boolean isDownloading = false;
+    private boolean isRestartDownload = false;
     private void initListener(){
         if(controller!=null){
-            controller.setOnClickListener(new OnClickListener() {
+            controller.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(isDownloading){
                         setStatus(1);
                         if(downloadListenr!=null){
-                            downloadListenr.stopDownload();
+                            downloadListenr.stopDownload(cdownloadUrl);
+                            isRestartDownload = false;
                         }
                     }else {
                         setStatus(2);
                         if(downloadListenr!=null){
-                            downloadListenr.startDownload();
+                            downloadListenr.startDownload(cdownloadUrl,new File(cdownloadPath),cfileMd5,cdownloadName,DownloadView.this);
+                            isRestartDownload = true;
                         }
                     }
-                    isDownloading = !isDownloading;
                 }
             });
         }
     }
+    private String cdownloadUrl;
+    private String cdownloadPath;
+    private String cdownloadName;
+    private String cfileMd5;
+    @Override
+    public void initDownloadView(String json) {
+        JSONObject jsonObject = JSON.parseObject(json);
+        cdownloadName = jsonObject.getString("downloadname");
+        cfileMd5 = jsonObject.getString("filemd5");
+        String percent = jsonObject.getString("downloadpercent");
+        percent = percent==null?"0":percent;
+        if(title!=null){
+            title.setText(cdownloadName==null?"":cdownloadName);
+        }
+        if(percentView!=null){
+            percentView.setText(percent+"%");
+        }
+        if(progressBar!=null){
+            progressBar.setProgress(Integer.parseInt(percent));
+        }
+        int status = jsonObject.getIntValue("downloadstatus");
+        this.cdownloadUrl = jsonObject.getString("downloadurl");
+        this.cdownloadPath = jsonObject.getString("savefilepath");
+        setStatus(status);
+    }
+
     @Override
     public void setDownloadPercent(String percent) {
         if(progressBar!=null){
@@ -99,7 +129,7 @@ public class DownloadView extends CardView implements DownloadViewIml{
             downloadstatus.setText(R.string.downloadstop);
         }
         if(controller!=null){
-            controller.setImageResource(R.drawable.pause);
+            controller.setImageResource(R.drawable.start);
         }
     }
 
@@ -120,21 +150,33 @@ public class DownloadView extends CardView implements DownloadViewIml{
         if(controller==null){
             return;
         }
+        if(type==-1){
+            controller.setImageResource(R.drawable.pause);
+            downloadstatus.setText(R.string.downloading);
+            isDownloading = true;
+            if(downloadListenr!=null){
+                downloadListenr.startDownload(cdownloadUrl,new File(cdownloadPath),cfileMd5,cdownloadName,DownloadView.this);
+            }
+        }
         if(type==1){
-            controller.setImageResource(R.drawable.start);
-            downloadstatus.setText(R.string.downloadstop);
+            if(!isRestartDownload){
+                controller.setImageResource(R.drawable.start);
+                downloadstatus.setText(R.string.downloadstop);
+                isDownloading = false;
+            }
         }
         if(type==2){
             controller.setImageResource(R.drawable.pause);
             downloadstatus.setText(R.string.downloading);
+            isDownloading = true;
         }
         if(type==3){
             controller.setOnClickListener(null);
-            controller.setOnClickListener(new OnClickListener() {
+            controller.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(downloadListenr!=null){
-                        downloadListenr.gotoPlay();
+                        downloadListenr.gotoPlay(cdownloadPath);
                     }
                 }
             });
@@ -144,6 +186,7 @@ public class DownloadView extends CardView implements DownloadViewIml{
             downloadstatus.setText(R.string.downloadsuccess);
         }
         if(type==4){
+            controller.setOnClickListener(null);
             controller.setImageResource(R.drawable.failed);
             downloadstatus.setTextColor(Color.RED);
             downloadstatus.setText(R.string.downloadfailed);
@@ -157,21 +200,8 @@ public class DownloadView extends CardView implements DownloadViewIml{
     }
 
     public interface DownloadListenr{
-        void startDownload();
-        void stopDownload();
-        void gotoPlay();
-    }
-
-    public void initDownloadViewStatus(String downloadName,String downloadpercent,int downloadstatus){
-        if(title!=null){
-            title.setText(downloadName);
-        }
-        if(percentView!=null){
-            percentView.setText(downloadpercent+"%");
-        }
-        if(progressBar!=null){
-            progressBar.setProgress(Integer.parseInt(downloadpercent));
-        }
-        setStatus(downloadstatus);
+        void startDownload(String downloadurl, File downloadfile, String filemd5, String filmname, DownloadViewIml iml);
+        void stopDownload(String downloadurl);
+        void gotoPlay(String filepath);
     }
 }
