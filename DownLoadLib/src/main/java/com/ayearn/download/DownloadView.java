@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Scroller;
 import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -22,11 +23,13 @@ import java.io.File;
  */
 
 public class DownloadView extends CardView implements DownloadViewIml{
+    private Scroller scroller;
     private TextView title;
     private ProgressBar progressBar;
     private ImageView controller;
     private TextView percentView;
     private TextView downloadstatus;
+    private Context mcontext;
     public DownloadView(Context context) {
         super(context);
         initChildView(context);
@@ -43,6 +46,7 @@ public class DownloadView extends CardView implements DownloadViewIml{
     }
 
     private void initChildView(Context context){
+        scroller = new Scroller(context);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View childview = inflater.inflate(R.layout.custom_progress_layout, this);
         title = childview.findViewById(R.id.progress_text);
