@@ -1,3 +1,6 @@
+import com.android.build.gradle.AppPlugin
+import proguard.gradle.ProGuardTask
+
 apply plugin: 'com.android.library'
 /*apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -72,4 +75,53 @@ dependencies {
      */
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+}
+
+task buildJar(dependsOn: ['compileReleaseJavaWithJavac'], type: Jar) {
+    archiveName 'vooleordersdk.jar'
+    from('build/intermediates/classes/release/')
+    //from('../../CommonLib3.0/UtilsLib/build/intermediates/classes/release/')
+    //from('../../CommonLib3.0/ProxyAuthLib/build/intermediates/classes/release/')
+
+    exclude "**/R.class"
+    exclude "**/R\$*.class"
+
+    //只导入资源路径集下的部分资源
+    //include "com/**"
+    //exclude('BuildConfig.class', 'R.class')
+    //去掉R$开头的文件
+    //exclude{ it.name.startsWith('R$')}
+}
+
+task proguardJar(dependsOn: ['buildJar'], type: ProGuardTask) {
+    //Android 默认的 proguard 文件
+    //configuration android.getDefaultProguardFile('proguard-android.txt')
+    //会根据该文件对 Jar 进行混淆，注意：需要在 manifest 注册的组件也要加入该文件中
+    configuration 'proguard-rules.pro'
+
+    String inJar = buildJar.archivePath.getAbsolutePath()
+    //输入 jar
+    injars inJar
+    //输出 jar
+    outjars inJar.substring(0, inJar.lastIndexOf(File.separator)) + "/P${buildJar.archiveName}"
+
+    //设置不删除未引用的资源(类，方法等)
+    dontshrink
+
+    AppPlugin appPlugin = getPlugins().findPlugin(AppPlugin)
+    if (appPlugin != null) {
+        List<String> runtimeJarList
+        if (appPlugin.getMetaClass().getMetaMethod("getRuntimeJarList")) {
+            runtimeJarList = appPlugin.getRuntimeJarList()
+        } else if (android.getMetaClass().getMetaMethod("getBootClasspath")) {
+            runtimeJarList = android.getBootClasspath()
+        } else {
+            runtimeJarList = appPlugin.getBootClasspath()
+        }
+
+        for (String runtimeJar : runtimeJarList) {
+            //给 proguard 添加 runtime
+            libraryjars(runtimeJar)
+        }
+    }
 }
