@@ -38,6 +38,7 @@ public abstract class BasePlayer extends FrameLayout implements PlayerInterface,
     protected IMediaPlayer mMediaPlayer;
     protected Context mContext;
     protected boolean surfaceIsExist = false;
+    protected long curentPlayPosition = 0;
     private PlayerType currentPlayerType = PlayerType.IJK;
     public enum PlayerType{
         IJK,EXO,NATIVE
@@ -134,6 +135,7 @@ public abstract class BasePlayer extends FrameLayout implements PlayerInterface,
             currentPlayerType = PlayerType.IJK;
             /*//开启硬解码
             mMediaPlayer.native_setLogLevel(IjkMediaPlayer.IJK_LOG_DEBUG);
+            videotoolbox
             mMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);*/
         }else if(PlayerType.EXO==type){
             mMediaPlayer = new IjkExoMediaPlayer(mContext);
@@ -245,7 +247,8 @@ public abstract class BasePlayer extends FrameLayout implements PlayerInterface,
     public long getCurrentPosition() {
         if(mMediaPlayer!=null){
             //LogUtil.d(TAG,"getCurrentPosition(VooleBasePlayer.java:238)--Info-->>"+mMediaPlayer.getCurrentPosition());
-            return mMediaPlayer.getCurrentPosition();
+            curentPlayPosition = mMediaPlayer.getCurrentPosition();
+            return curentPlayPosition;
         }
         return -1;
     }

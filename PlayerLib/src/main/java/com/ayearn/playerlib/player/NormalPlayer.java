@@ -28,11 +28,11 @@ public abstract class NormalPlayer extends BasePlayer {
      * 是否是在surface创建成功之前调用
      */
     private boolean isSufaceCreatedBefour = false;
+    private int bufferpercent = 0;
     /**
      * 播放开始时快进的位置
      */
     protected long firstSeekPosition = 0;
-
     protected String currentPlayurl ="";
     /**
      * 汇报层需要
@@ -230,5 +230,19 @@ public abstract class NormalPlayer extends BasePlayer {
                 break;
         }
         return super.onInfo(mp, what, extra);
+    }
+    @Override
+    public void onBufferingUpdate(IMediaPlayer mp, int percent) {
+        super.onBufferingUpdate(mp, percent);
+        bufferpercent = percent;
+    }
+
+    public int getBufferPercent(){
+        return bufferpercent;
+    }
+
+    public void retryPlay(){
+        long reseek = curentPlayPosition>=firstSeekPosition?curentPlayPosition:firstSeekPosition;
+        startPlay(currentPlayurl,reseek);
     }
 }
