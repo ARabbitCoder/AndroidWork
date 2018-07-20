@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -83,6 +84,8 @@ public class StanardPlayerView extends VideoBehaviorView {
         if(getContext() instanceof Activity){
             parent = (Activity) getContext();
         }
+        setFocusable(true);
+        setFocusableInTouchMode(true);
     }
 
     private void initPlayer() {
@@ -309,9 +312,23 @@ public class StanardPlayerView extends VideoBehaviorView {
                     // 网络连接的情况下只处理连接完成状态
                     return;
                 }
-
                 mediaController.checkShowError(true);
             }
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            if(parent!=null) {
+                if (!DensityUtil.isPortrait(parent)) {
+                    if (!mediaController.isLock()) {
+                        DensityUtil.toggleScreenOrientation(parent);
+                        return true;
+                    }
+                }
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
