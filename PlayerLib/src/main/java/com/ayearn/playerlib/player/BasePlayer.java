@@ -87,7 +87,15 @@ public abstract class BasePlayer extends FrameLayout implements PlayerInterface,
     private void initViewAndPlayer(Context context){
         this.mContext = context;
         PlayerType type = getPlayerType();
-        if(PlayerType.IJK==type){
+        if(setMediaPlayerType(type)){
+            addSurfaceView();
+        }
+        doWorkOnInit();
+    }
+
+
+    public boolean setMediaPlayerType(PlayerType playerType){
+        if(PlayerType.IJK==playerType){
             //加载so文件
             try {
                 IjkMediaPlayer.loadLibrariesOnce(null);
@@ -98,17 +106,17 @@ public abstract class BasePlayer extends FrameLayout implements PlayerInterface,
         }
         if(loadlibSuccess){
             LogUtil.d(TAG,"initViewAndPlayer(VooleBasePlayer.java:86)--Info-->>initViewAndPlayer");
-            addSurfaceView();
-            createMediaPlayer();
+            createMediaPlayer(playerType);
         }else {
-            TextView error = new TextView(context);
+            TextView error = new TextView(mContext);
             error.setText("error! load ijklib failed,you should check the lib isexist,or use exoplayer");
             LayoutParams errorLayoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
             errorLayoutParams.gravity = Gravity.CENTER;
             this.addView(error);
         }
-        doWorkOnInit();
+        return loadlibSuccess;
     }
+
 
     private void addSurfaceView(){
         if(mContext==null){
@@ -123,18 +131,18 @@ public abstract class BasePlayer extends FrameLayout implements PlayerInterface,
     /**
      * 创建MediaPlayer
      */
-    private void createMediaPlayer(){
+    private void createMediaPlayer(PlayerType type){
         if (mMediaPlayer != null) {
             mMediaPlayer.stop();
             mMediaPlayer.setDisplay(null);
             mMediaPlayer.release();
         }
-        PlayerType type = getPlayerType();
         if(PlayerType.IJK==type){
             mMediaPlayer = new IjkMediaPlayer();
             currentPlayerType = PlayerType.IJK;
             //开启硬解码  1 开启  0 关闭
             ((IjkMediaPlayer)mMediaPlayer).setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);
+            ((IjkMediaPlayer)mMediaPlayer).setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "videotoolbox", 0);
             /*开启debug
             mMediaPlayer.native_setLogLevel(IjkMediaPlayer.IJK_LOG_DEBUG);
             //自适应 硬件开启下有效
