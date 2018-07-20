@@ -5,7 +5,6 @@
     android:background="@color/bg_video_controller"
     android:clickable="true"
     android:gravity="center"
-    android:visibility="gone"
     android:orientation="vertical">
 
     <TextView
