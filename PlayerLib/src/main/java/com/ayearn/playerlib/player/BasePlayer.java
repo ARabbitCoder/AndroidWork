@@ -133,10 +133,17 @@ public abstract class BasePlayer extends FrameLayout implements PlayerInterface,
         if(PlayerType.IJK==type){
             mMediaPlayer = new IjkMediaPlayer();
             currentPlayerType = PlayerType.IJK;
-            /*//开启硬解码
+            //开启硬解码  1 开启  0 关闭
+            ((IjkMediaPlayer)mMediaPlayer).setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);
+            /*开启debug
             mMediaPlayer.native_setLogLevel(IjkMediaPlayer.IJK_LOG_DEBUG);
-            videotoolbox
-            mMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);*/
+            //自适应 硬件开启下有效
+            mMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-auto-rotate", 1);
+            //硬件开启下有效
+            mMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-handle-resolution-change", 1);
+            //开启opensles
+            mMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "opensles", 1);
+            */
         }else if(PlayerType.EXO==type){
             mMediaPlayer = new IjkExoMediaPlayer(mContext);
             currentPlayerType = PlayerType.EXO;
