@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.ayearn.playerlib.player.VideoPlayer
+        android:id="@+id/video_player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.ayearn.playerlib.player.VideoPlayer>
+
+    <com.ayearn.playerlib.newcontroller.VideoControllerView
+        android:id="@+id/video_controller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.ayearn.playerlib.newcontroller.VideoControllerView>
+
+    <include
+        android:id="@+id/video_loading"
+        layout="@layout/video_controller_loading" />
+
+    <com.ayearn.playerlib.newcontroller.VideoSystemOverlay
+        android:id="@+id/video_system_overlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+    </com.ayearn.playerlib.newcontroller.VideoSystemOverlay>
+
+    <com.ayearn.playerlib.newcontroller.VideoProgressOverlay
+        android:id="@+id/video_progress_overlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+
+    </com.ayearn.playerlib.newcontroller.VideoProgressOverlay>
+
+</RelativeLayout>

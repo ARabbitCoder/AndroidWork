@@ -7,7 +7,6 @@
 
     <style name="CPB" parent="android:Widget.Holo.ProgressBar">
     </style>
-
     <style name="CircularProgressBar" parent="CPB">
         <item name="cpb_color">@color/cpb_default_color</item>
         <item name="cpb_stroke_width">@dimen/cpb_default_stroke_width</item>
