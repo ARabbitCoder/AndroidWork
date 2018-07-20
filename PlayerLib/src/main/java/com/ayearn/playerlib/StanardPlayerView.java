@@ -312,6 +312,7 @@ public class StanardPlayerView extends VideoBehaviorView {
                     // 网络连接的情况下只处理连接完成状态
                     return;
                 }
+
                 mediaController.checkShowError(true);
             }
         }
