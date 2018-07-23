@@ -41,7 +41,7 @@ public class VideoPlayer extends ErrorPlayer{
      */
     @Override
     protected PlayerType getPlayerType() {
-        return PlayerType.IJK;
+        return PlayerType.EXO;
     }
 
     /**
