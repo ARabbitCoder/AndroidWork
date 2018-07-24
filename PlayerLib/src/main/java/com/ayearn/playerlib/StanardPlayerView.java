@@ -119,7 +119,10 @@ public class StanardPlayerView extends VideoBehaviorView {
 
             @Override
             public void onError(int what, int extra) {
-                mediaController.checkShowError(false);
+                hideLoading();
+                if(mediaController!=null){
+                    mediaController.checkShowError(false);
+                }
             }
 
             @Override
