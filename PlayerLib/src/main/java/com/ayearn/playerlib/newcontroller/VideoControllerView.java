@@ -138,7 +138,7 @@ public class VideoControllerView extends FrameLayout {
 
     public void setMediaPlayer(VideoPlayer player) {
         mPlayer = player;
-        updatePausePlay();
+        //updatePausePlay();
     }
 
     public void setVideoInfo(PlayItem playItem) {
@@ -413,10 +413,10 @@ public class VideoControllerView extends FrameLayout {
 
     public void updatePausePlay() {
         if (mPlayer.isPlaying()) {
-            //mVideoPlayPause.setVisibility(View.GONE);
+            mVideoPlayPause.setVisibility(View.GONE);
             mVideoPlayState.setImageResource(R.drawable.ic_video_pause);
         } else {
-            //mVideoPlayPause.setVisibility(View.VISIBLE);
+            mVideoPlayPause.setVisibility(View.VISIBLE);
             mVideoPlayState.setImageResource(R.drawable.ic_video_play);
         }
     }
